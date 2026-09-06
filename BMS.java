@@ -122,8 +122,8 @@ public class BMS extends JFrame implements ActionListener {
         cardLabel.setBounds(83,195,200,30);
         rightPanel.add(cardLabel);
 
-        JLabel cardIcon = new JLabel("▣");
-        cardIcon.setFont(new Font("Segoe UI",Font.BOLD,23));
+        JLabel cardIcon = new JLabel("\u25A3");
+        cardIcon.setFont(new Font("Segoe UI Symbol",Font.BOLD,23));
         cardIcon.setForeground(blue);
         cardIcon.setHorizontalAlignment(SwingConstants.CENTER);
         cardIcon.setBackground(lightBlue);
