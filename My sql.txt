@@ -1,33 +1,66 @@
-create database bankmanagementsystem;
+CREATE DATABASE bankmanagementsystem;
 
-show databases;
+USE bankmanagementsystem;
 
-use bankmanagementsystem;
+CREATE TABLE signup (
+    formno VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    fname VARCHAR(100) NOT NULL,
+    dob VARCHAR(20) NOT NULL,
+    gender VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    marital VARCHAR(20) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    pin VARCHAR(10) NOT NULL,
+    state VARCHAR(50) NOT NULL
+);
 
-show tables;
+CREATE TABLE signuptwo (
+    formno VARCHAR(20) PRIMARY KEY,
+    religion VARCHAR(30) NOT NULL,
+    category VARCHAR(30) NOT NULL,
+    income VARCHAR(50) NOT NULL,
+    education VARCHAR(50) NOT NULL,
+    occupation VARCHAR(50) NOT NULL,
+    seniorcitizen VARCHAR(10) NOT NULL,
+    existingaccount VARCHAR(10) NOT NULL,
+    pan VARCHAR(20) NOT NULL,
+    aadhar VARCHAR(20) NOT NULL,
 
-create table signup(formno varchar(20), name varchar(20), father_name varchar(20), dob varchar(20), gender varchar(20), email varchar(30),marital varchar(20), address varchar(40),city varchar(25),pin varchar(20), state varchar(25));
+    FOREIGN KEY (formno)
+    REFERENCES signup(formno)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
 
-select * from signup;
+CREATE TABLE signupthree (
+    formno VARCHAR(20) PRIMARY KEY,
+    accounttype VARCHAR(50) NOT NULL,
+    cardnumber VARCHAR(20) NOT NULL UNIQUE,
+    pinnumber VARCHAR(10) NOT NULL,
+    facility VARCHAR(255),
 
-create table signuptwo(formno varchar(20), religion varchar(20), category varchar(20), income varchar(20), education varchar(20), occupation varchar(20), senior_citizen varchar(20), Existingac varchar(20), pan varchar(20), aadhar varchar(20));
+    FOREIGN KEY (formno)
+    REFERENCES signup(formno)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
 
-select * from signuptwo;
+CREATE TABLE login (
+    formno VARCHAR(20) PRIMARY KEY,
+    cardnumber VARCHAR(20) NOT NULL UNIQUE,
+    pin VARCHAR(10) NOT NULL UNIQUE,
 
-create table signupthree(formno varchar(20), accountType varchar(40), cardnumber varchar(20), pin varchar(20), facility varchar(200));
+    FOREIGN KEY (formno)
+    REFERENCES signup(formno)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
 
-select * from signupthree;
-
-create table login(formno varchar(20), cardnumber varchar(20), pin varchar(20));
-
-select * from login;
-
-create table bank(pin varchar(20), date varchar(50), type varchar(20), amount varchar(20));
-
-select * from bank; 
-
-drop table login;
-drop table signup;
-drop table signuptwo;
-drop table signupthree;
-drop table bank;
+CREATE TABLE bank (
+    pin VARCHAR(10) NOT NULL,
+    date VARCHAR(100) NOT NULL,
+    type VARCHAR(30) NOT NULL,
+    amount VARCHAR(20) NOT NULL
+);
