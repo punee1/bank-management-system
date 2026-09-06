@@ -61,7 +61,7 @@ public class Withdrawl extends JFrame implements ActionListener {
         secure.setBounds(30,245,190,60);
         sidebar.add(secure);
 
-        JLabel withdrawIcon =new JLabel("−");
+        JLabel withdrawIcon = new JLabel("−");
         withdrawIcon.setFont(new Font("Segoe UI",Font.BOLD,80));
         withdrawIcon.setForeground(new Color(80, 150, 240));
         withdrawIcon.setHorizontalAlignment(SwingConstants.CENTER);
@@ -179,21 +179,17 @@ public class Withdrawl extends JFrame implements ActionListener {
         else if (ae.getSource() == withdrawl) {
             String number =amount.getText().trim();
             if (number.equals("")) {
-                JOptionPane.showMessageDialog(
-                        this,"Please enter the amount.","Amount Required",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Please enter the amount.","Amount Required",JOptionPane.WARNING_MESSAGE);
                 return;
             }
             int amt;
             try {
                 amt = Integer.parseInt(number);
             } catch(NumberFormatException e) {
-
                 JOptionPane.showMessageDialog(this,"Please enter a valid amount.","Invalid Amount",JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
             if (amt <= 0) {
-
                 JOptionPane.showMessageDialog(this,"Amount must be greater than zero.","Invalid Amount",JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -202,33 +198,32 @@ public class Withdrawl extends JFrame implements ActionListener {
                 return;
             }
             try {
-                Conn c =new Conn();
+                Conn c = new Conn();
                 int balance = 0;
-                ResultSet rs =c.s.executeQuery("select * from bank where pin = '"+ pinnumber+ "'");
+                ResultSet rs = c.s.executeQuery("select * from bank where pin = '" + pinnumber + "'");
                 while (rs.next()) {
-                    String type =rs.getString("type");
+                    String type = rs.getString("type");
                     int transactionAmount =Integer.parseInt(rs.getString("amount"));
-                    if (
-                            type.equalsIgnoreCase("Deposit")) {
-                        balance +=transactionAmount;
+                    if (type.equalsIgnoreCase("Deposit")) {
+                        balance += transactionAmount;
                     } else if (type.equalsIgnoreCase("Withdrawl") || type.equalsIgnoreCase("Withdrawal")) {
-                        balance -=transactionAmount;
+                        balance -= transactionAmount;
                     }
                 }
 
                 if (balance < amt) {
-                    JOptionPane.showMessageDialog(this,"Insufficient Balance.\n"+ "Available Balance: ₹"+ balance,"Insufficient Balance",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"Insufficient Balance.\n" + "Available Balance: ₹" + balance,"Insufficient Balance",JOptionPane.WARNING_MESSAGE);
                     rs.close();
                     c.c.close();
                     return;
                 }
 
-                Date date =new Date();
-                String query ="insert into bank values('"+ pinnumber+ "','"+ date+ "','Withdrawl','"+ amt+ "')";
+                Date date = new Date();
+                String query = "insert into bank values('" + pinnumber + "','" + date + "','Withdrawl','" + amt + "')";
                 c.s.executeUpdate(query);
                 rs.close();
                 c.c.close();
-                JOptionPane.showMessageDialog(this,"₹" + amt+ " Withdrawn Successfully!","Withdrawal Successful",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this,"₹" + amt + " Withdrawn Successfully!","Withdrawal Successful",JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
                 new Transactions(pinnumber).setVisible(true);
             } catch (Exception e) {
