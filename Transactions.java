@@ -51,33 +51,33 @@ public class Transactions extends JFrame implements ActionListener {
         separator.setBounds(30,205,190,2);
         sidebar.add(separator);
 
-        JButton dashboard =createSideButton("⌂   Dashboard");
-        dashboard.setBounds(20,230,210,45);
+        JButton dashboard = createSideButton("\u2302   Dashboard"); 
+        dashboard.setBounds(20, 230, 210, 45);
         sidebar.add(dashboard);
-        
-        JButton depositMenu =createSideButton("＋   Deposit");
-        depositMenu.setBounds(20,285,210,45);
+
+        JButton depositMenu = createSideButton("+   Deposit"); 
+        depositMenu.setBounds(20, 285, 210, 45);
         depositMenu.addActionListener(this);
         sidebar.add(depositMenu);
 
-        JButton withdrawMenu =createSideButton("−   Withdraw");
-        withdrawMenu.setBounds(20,340,210,45);
+        JButton withdrawMenu = createSideButton("-   Withdraw"); 
+        withdrawMenu.setBounds(20, 340, 210, 45);
         withdrawMenu.addActionListener(this);
         sidebar.add(withdrawMenu);
 
-        JButton fastCashMenu =createSideButton("⚡   Fast Cash");
-        fastCashMenu.setBounds(20,395,210,45);
+        JButton fastCashMenu = createSideButton("\u26A1   Fast Cash"); 
+        fastCashMenu.setBounds(20, 395, 210, 45);
         fastCashMenu.addActionListener(this);
         sidebar.add(fastCashMenu);
 
-        JButton statementMenu =createSideButton("▤   Mini Statement");
-        statementMenu.setBounds(20,450,210,45);
+        JButton statementMenu = createSideButton("\u25A4   Mini Statement"); 
+        statementMenu.setBounds(20, 450, 210, 45);
         statementMenu.addActionListener(this);
         sidebar.add(statementMenu);
 
-        JButton logout =createSideButton("↪   Logout");
-        logout.setBounds(20,560,210,45);
-        logout.addActionListener(e -> {setVisible(false);new BMS();});
+        JButton logout = createSideButton("\u21AA   Logout"); 
+        logout.setBounds(20, 560, 210, 45);
+        logout.addActionListener(e -> { setVisible(false); new BMS(); });
         sidebar.add(logout);
 
         mainPanel.add(sidebar,BorderLayout.WEST);
@@ -180,17 +180,19 @@ public class Transactions extends JFrame implements ActionListener {
         add(mainPanel);
         setVisible(true);
     }
-    private JButton createSideButton(String text)
+    
+        private JButton createSideButton(String text)
     {
-        JButton button =new JButton(text);
-        button.setFont(new Font("Segoe UI",Font.BOLD,14));
-        button.setForeground(new Color(215,225,245));
+        JButton button = new JButton(text);
+        button.setFont(new Font("Segoe UI Symbol", Font.BOLD, 14)); 
+        button.setForeground(new Color(215, 225, 245));
         button.setBackground(darkBlue);
         button.setHorizontalAlignment(SwingConstants.LEFT);
-        button.setBorder(new EmptyBorder(0,18,0,0));
+        button.setBorder(new EmptyBorder(0, 18, 0, 0));
         button.setFocusPainted(false);
         return button;
     }
+        
     private JButton createServiceButton(String title,String subtitle) 
     {
         JButton button =new JButton();
