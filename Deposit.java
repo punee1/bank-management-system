@@ -60,11 +60,11 @@ public class Deposit extends JFrame implements ActionListener {
         secure.setBounds(30,245,190,60);
         sidebar.add(secure);
 
-        JLabel transactionIcon =new JLabel("＋");
-        transactionIcon.setFont(new Font("Segoe UI",Font.BOLD,70));
-        transactionIcon.setForeground(new Color(80,150,240));
+        JLabel transactionIcon = new JLabel("+");
+        transactionIcon.setFont(new Font("Segoe UI", Font.BOLD, 70));
+        transactionIcon.setForeground(new Color(80, 150, 240));
         transactionIcon.setHorizontalAlignment(SwingConstants.CENTER);
-        transactionIcon.setBounds(70,340,110,90);
+        transactionIcon.setBounds(70, 340, 110, 90);
         sidebar.add(transactionIcon);
 
         JLabel bottom =new JLabel("SECURE • SIMPLE • SMART");
