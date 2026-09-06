@@ -1,19 +1,18 @@
-package bank.management.system;
+package bms;
 
 import java.sql.*;
 
 public class Conn {
-    Connection c ;
+    Connection c;
     Statement s;
-    public Conn(){
-        try{
-            c = DriverManager.getConnection("jdbc:mysql:///bankmanagementsystem", "root", "puneetkrk");
+
+    public Conn() {
+        try {
+            c = DriverManager.getConnection("jdbc:mysql:///BMS","root","puneetkrk");
             s = c.createStatement();
-         }
-        catch(Exception e){
+
+        } catch (Exception e) {
             System.out.println(e);
-            
         }
     }
-    
 }
