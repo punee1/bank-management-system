@@ -1,6 +1,7 @@
-package bank.management.system;
+package bms;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
@@ -12,138 +13,261 @@ public class Withdrawl extends JFrame implements ActionListener {
     JTextField amount;
     String pinnumber;
 
+    Color darkBlue = new Color(8, 30, 68);
+    Color blue = new Color(35, 91, 210);
+    Color lightBlue = new Color(235, 242, 255);
+    Color textColor = new Color(20, 35, 65);
+    Color gray = new Color(105, 115, 130);
+
     Withdrawl(String pinnumber) {
-
         this.pinnumber = pinnumber;
+        setTitle("Withdraw Money");
+        setSize(1100, 650);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/atm.jpg"));
-        Image i2 = i1.getImage().getScaledInstance(800, 730, Image.SCALE_DEFAULT);
-        ImageIcon i3 = new ImageIcon(i2);
-        JLabel label = new JLabel(i3);
-        label.setBounds(0, 0, 800, 730);
-        add(label);
+        JPanel mainPanel =new JPanel(new BorderLayout());
+        mainPanel.setBackground(new Color(245, 247, 251));
 
-        JLabel info1 = new JLabel("MAXIMUM WITHDRAWAL IS RS. 10,000");
-        info1.setFont(new Font("Raleway", Font.BOLD, 13));
-        info1.setForeground(Color.WHITE);
-        info1.setBounds(180, 240, 300, 20);
-        label.add(info1);
+        JPanel sidebar = new JPanel();
+        sidebar.setPreferredSize(new Dimension(250, 650));
+        sidebar.setBackground(darkBlue);
+        sidebar.setLayout(null);
 
-        JLabel info2 = new JLabel("ENTER AMOUNT YOU WANT TO WITHDRAW");
-        info2.setFont(new Font("Raleway", Font.BOLD, 14));
-        info2.setForeground(Color.WHITE);
-        info2.setBounds(145, 280, 350, 20);
-        label.add(info2);
+        JLabel bankIcon =new JLabel("₹");
+        bankIcon.setFont(new Font("Segoe UI",Font.BOLD,48));
+        bankIcon.setForeground(Color.WHITE);
+        bankIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        bankIcon.setBounds(80,30,90,70);
+        sidebar.add(bankIcon);
 
-        amount = new JTextField();
-        amount.setFont(new Font("Raleway", Font.BOLD, 18));
-        amount.setBounds(145, 315, 300, 25);
-        label.add(amount);
+        JLabel bankName =new JLabel("<html><center>BANK<br>"+ "MANAGEMENT<br>"+ "SYSTEM</center></html>");
+        bankName.setFont(new Font("Segoe UI",Font.BOLD,18));
+        bankName.setForeground(Color.WHITE);
+        bankName.setHorizontalAlignment(SwingConstants.CENTER);
+        bankName.setBounds(25,100,200,85);
+        sidebar.add(bankName);
 
-        withdrawl = new JButton("WITHDRAW");
-        withdrawl.setBounds(310, 425, 143, 25);
-        withdrawl.addActionListener(this);
-        label.add(withdrawl);
+        JPanel separator =new JPanel();
+        separator.setBackground(new Color(70, 100, 160));
+        separator.setBounds(30,205,190,2);
+        sidebar.add(separator);
 
-        back = new JButton("BACK");
-        back.setBounds(310, 455, 143, 25);
-        back.addActionListener(this);
-        label.add(back);
+        JLabel secure =new JLabel("<html><center>Secure Banking<br>"+ "Transaction</center></html>");
+        secure.setFont(new Font("Segoe UI",Font.PLAIN,16));
+        secure.setForeground(new Color(190, 205, 230));
+        secure.setHorizontalAlignment(SwingConstants.CENTER);
+        secure.setBounds(30,245,190,60);
+        sidebar.add(secure);
 
-        setLayout(null);
-        setSize(800, 730);
-        setLocation(300, 0);
-        setUndecorated(true);
+        JLabel withdrawIcon =new JLabel("−");
+        withdrawIcon.setFont(new Font("Segoe UI",Font.BOLD,80));
+        withdrawIcon.setForeground(new Color(80, 150, 240));
+        withdrawIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        withdrawIcon.setBounds(70,340,110,90);
+        sidebar.add(withdrawIcon);
+
+        JLabel bottom =new JLabel("SECURE • SIMPLE • SMART");
+        bottom.setFont(new Font("Segoe UI",Font.BOLD,12));
+        bottom.setForeground(new Color(140, 180, 240));
+        bottom.setHorizontalAlignment(SwingConstants.CENTER);
+        bottom.setBounds(25,555,200,30);
+        sidebar.add(bottom);
+        mainPanel.add(sidebar,BorderLayout.WEST);
+
+        JPanel content =new JPanel();
+        content.setLayout(null);
+        content.setBackground(new Color(245, 247, 251));
+
+        JLabel title =new JLabel("Withdraw Money");
+        title.setFont(new Font("Segoe UI",Font.BOLD,34));
+        title.setForeground(textColor);
+        title.setBounds(60,55,500,45);
+        content.add(title);
+
+        JLabel subtitle =new JLabel("Withdraw money securely from your bank account");
+        subtitle.setFont(new Font("Segoe UI",Font.PLAIN,16));
+        subtitle.setForeground(gray);
+        subtitle.setBounds(63,105,550,30);
+        content.add(subtitle);
+
+        JPanel line =new JPanel();
+        line.setBackground(blue);
+        line.setBounds(63,145,75,4);
+        content.add(line);
+
+        JPanel card =new JPanel();
+        card.setLayout(null);
+        card.setBackground(Color.WHITE);
+        card.setBorder(BorderFactory.createLineBorder(new Color(225,230,240)));
+        card.setBounds(60,185,645,330);
+        content.add(card);
+
+        JLabel cardTitle = new JLabel("Enter Withdrawal Amount");
+        cardTitle.setFont(new Font("Segoe UI",Font.BOLD,22));
+        cardTitle.setForeground(textColor);
+        cardTitle.setBounds(45,30,400,35);
+        card.add(cardTitle);
+
+        JLabel cardDescription =new JLabel("Enter the amount you want to withdraw");
+        cardDescription.setFont(new Font("Segoe UI",Font.PLAIN,14));
+        cardDescription.setForeground(gray);
+        cardDescription.setBounds(45,68,400,25);
+        card.add(cardDescription);
+
+        JLabel limit =new JLabel("Maximum withdrawal limit: ₹10,000");
+        limit.setFont(new Font("Segoe UI",Font.BOLD,13));
+        limit.setForeground(new Color(190,80,70));
+        limit.setBounds(45,98,350,25);
+        card.add(limit);
+
+        JLabel rupee =new JLabel("₹");
+        rupee.setFont(new Font("Segoe UI",Font.BOLD,25));
+        rupee.setForeground(blue);
+        rupee.setHorizontalAlignment(SwingConstants.CENTER);
+        rupee.setBackground(lightBlue);
+        rupee.setOpaque(true);
+        rupee.setBounds(45,130,55,55);
+        card.add(rupee);
+
+        amount =new JTextField();
+        amount.setFont(new Font("Segoe UI",Font.PLAIN,20));
+        amount.setForeground(textColor);
+        amount.setBounds(115,130,450,55);
+        amount.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(new Color(205,215,235),1,15),new EmptyBorder(0,15,0,15)));
+        card.add(amount);
+
+        withdrawl =createButton("WITHDRAW MONEY",darkBlue);
+        withdrawl.setBounds(45,220,250,52);
+        card.add(withdrawl);
+
+        back =createButton("BACK",new Color(90,105,125));
+        back.setBounds(315,220,250,52);
+        card.add(back);
+
+        JLabel security =new JLabel("🔒  Your transaction is securely processed");
+        security.setFont(new Font("Segoe UI Emoji",Font.PLAIN,13));
+        security.setForeground(new Color(95,110,125));
+        security.setHorizontalAlignment(SwingConstants.CENTER);
+        security.setBounds(60,540,645,30);
+        content.add(security);
+
+        mainPanel.add(content,BorderLayout.CENTER);
+        add(mainPanel);
+
         setVisible(true);
     }
 
+    private JButton createButton(String text,Color color) {
+        JButton button =new JButton(text);
+        button.setFont(new Font("Segoe UI",Font.BOLD,14));
+        button.setForeground(Color.WHITE);
+        button.setBackground(color);
+        button.setFocusPainted(false);
+        button.setBorder(new RoundedBorder(color,0,12));
+        button.addActionListener(this);
+        return button;
+    }
+
+
     public void actionPerformed(ActionEvent ae) {
-
         if (ae.getSource() == back) {
-
             setVisible(false);
             new Transactions(pinnumber).setVisible(true);
-
-        } else if (ae.getSource() == withdrawl) {
-
-            String number = amount.getText().trim();
-
+        }
+        else if (ae.getSource() == withdrawl) {
+            String number =amount.getText().trim();
             if (number.equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter the amount.");
+                JOptionPane.showMessageDialog(
+                        this,"Please enter the amount.","Amount Required",JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
             int amt;
-
             try {
                 amt = Integer.parseInt(number);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Please enter a valid amount.");
+            } catch(NumberFormatException e) {
+
+                JOptionPane.showMessageDialog(this,"Please enter a valid amount.","Invalid Amount",JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (amt <= 0) {
-                JOptionPane.showMessageDialog(null, "Amount must be greater than zero.");
+
+                JOptionPane.showMessageDialog(this,"Amount must be greater than zero.","Invalid Amount",JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
             if (amt > 10000) {
-                JOptionPane.showMessageDialog(null, "Maximum withdrawal limit is Rs. 10,000.");
+                JOptionPane.showMessageDialog(this,"Maximum withdrawal limit is ₹10,000.","Withdrawal Limit",JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
             try {
-
-                Conn c = new Conn();
-
+                Conn c =new Conn();
                 int balance = 0;
-
-                ResultSet rs = c.s.executeQuery(
-                        "select * from bank where pin = '" + pinnumber + "'");
-
+                ResultSet rs =c.s.executeQuery("select * from bank where pin = '"+ pinnumber+ "'");
                 while (rs.next()) {
-
-                    String type = rs.getString("type");
-                    int transactionAmount = Integer.parseInt(rs.getString("amount"));
-
-                    if (type.equalsIgnoreCase("Deposit")) {
-                        balance += transactionAmount;
-                    } else if (type.equalsIgnoreCase("Withdrawl")
-                            || type.equalsIgnoreCase("Withdrawal")) {
-                        balance -= transactionAmount;
+                    String type =rs.getString("type");
+                    int transactionAmount =Integer.parseInt(rs.getString("amount"));
+                    if (
+                            type.equalsIgnoreCase("Deposit")) {
+                        balance +=transactionAmount;
+                    } else if (type.equalsIgnoreCase("Withdrawl") || type.equalsIgnoreCase("Withdrawal")) {
+                        balance -=transactionAmount;
                     }
                 }
 
                 if (balance < amt) {
-                    JOptionPane.showMessageDialog(null, "Insufficient Balance.");
+                    JOptionPane.showMessageDialog(this,"Insufficient Balance.\n"+ "Available Balance: ₹"+ balance,"Insufficient Balance",JOptionPane.WARNING_MESSAGE);
+                    rs.close();
+                    c.c.close();
                     return;
                 }
 
-                Date date = new Date();
-
-                String query = "insert into bank values('"
-                        + pinnumber + "','"
-                        + date + "','Withdrawl','"
-                        + amt + "')";
-
+                Date date =new Date();
+                String query ="insert into bank values('"+ pinnumber+ "','"+ date+ "','Withdrawl','"+ amt+ "')";
                 c.s.executeUpdate(query);
-
-                JOptionPane.showMessageDialog(null,
-                        "Rs. " + amt + " Withdrawn Successfully");
-
+                rs.close();
+                c.c.close();
+                JOptionPane.showMessageDialog(this,"₹" + amt+ " Withdrawn Successfully!","Withdrawal Successful",JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
                 new Transactions(pinnumber).setVisible(true);
-
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(this,"Database Error: "+ e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    public static void main(String[] args) {
+    static class RoundedBorder implements javax.swing.border.Border {
+        private Color color;
+        private int thickness;
+        private int radius;
 
-        Withdrawl w = new Withdrawl("");
-        w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        RoundedBorder(Color color,int thickness,int radius) {
+            this.color = color;
+            this.thickness = thickness;
+            this.radius = radius;
+        }
+
+        public Insets getBorderInsets(Component c) {
+            return new Insets(8,8,8,8);
+        }
+        
+        public boolean isBorderOpaque() {
+            return false;
+        }
+        
+        public void paintBorder(Component c,Graphics g,int x,int y,int width,int height) {
+            Graphics2D g2 =(Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(color);
+            g2.setStroke(new BasicStroke(thickness));
+            g2.drawRoundRect(x,y,width - 1,height - 1,radius,radius);
+            g2.dispose();
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        SwingUtilities.invokeLater(() -> new Withdrawl(""));
     }
 }
